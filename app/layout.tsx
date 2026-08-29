@@ -17,6 +17,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://thanvitha-s-website.vercel.app"),
   title: {
     default: siteMetadata.title,
     template: "%s | Thanvinta’s Fit Fuel Kitchen",
@@ -36,7 +37,7 @@ export const metadata: Metadata = {
     description: "High-protein salads & fresh weekly bowls. Clean ingredients, real macros, freshly prepared daily in Mangalagiri.",
   },
   icons: {
-    icon: "/favicon.svg",
+    icon: "/brand/logo-wordmark.png",
   },
 };
 
