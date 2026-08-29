@@ -1,26 +1,178 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-cream: hsl(var(--background));
+  --color-ink: hsl(var(--foreground));
+  --color-line: hsl(var(--border));
+  --color-teal: hsl(var(--primary));
+  --color-teal-dark: hsl(163 66% 27%);
+  --color-sun: hsl(var(--secondary));
+  --color-coral: hsl(var(--accent));
+  --color-lime: #8bc34a;
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --font-sans: var(--app-font-sans);
+  --font-mono: var(--app-font-mono);
+  --shadow-xs: 0 3px 8px hsl(155 21% 15% / 0.06);
+  --shadow-sm: 0 5px 14px hsl(155 21% 15% / 0.07);
+  --shadow-md: 0 16px 38px hsl(155 21% 15% / 0.11);
+  --shadow-lg: 0 24px 60px hsl(155 21% 15% / 0.13);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --background: 45 44% 97%;
+  --foreground: 155 21% 15%;
+  --border: 42 22% 87%;
+  --input: 42 22% 87%;
+  --ring: 163 66% 34%;
+  --card: 42 33% 99%;
+  --card-foreground: 155 21% 15%;
+  --primary: 163 66% 34%;
+  --primary-foreground: 45 44% 97%;
+  --secondary: 53 93% 63%;
+  --secondary-foreground: 155 21% 15%;
+  --muted: 42 27% 92%;
+  --muted-foreground: 155 10% 42%;
+  --accent: 10 78% 59%;
+  --accent-foreground: 45 44% 97%;
+  --app-font-sans: var(--font-dm-sans), "DM Sans", sans-serif;
+  --app-font-mono: var(--font-space-grotesk), "Space Grotesk", sans-serif;
+  --radius: 1.15rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+    margin: 0;
+  }
+
+  button,
+  a,
+  input,
+  select {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible {
+    outline: 3px solid hsl(var(--secondary));
+    outline-offset: 3px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .display-font {
+    font-family: var(--app-font-mono);
+    letter-spacing: -0.055em;
+  }
+
+  .soft-grid {
+    background-image:
+      linear-gradient(hsl(var(--border) / 0.35) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.35) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .grain::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 30;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+  }
+
+  .animate-rise {
+    animation: rise 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .animate-fade {
+    animation: fade 0.5s ease both;
+  }
+
+  .delay-1 {
+    animation-delay: 0.08s;
+  }
+
+  .delay-2 {
+    animation-delay: 0.16s;
+  }
+
+  .delay-3 {
+    animation-delay: 0.24s;
+  }
+
+  .delay-4 {
+    animation-delay: 0.32s;
+  }
+
+  .delay-5 {
+    animation-delay: 0.4s;
+  }
+
+  .z-25 {
+    z-index: 25;
+  }
+
+  .app-mobile-nav {
+    display: flex;
+  }
+
+  .app-desktop-nav {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .app-mobile-nav {
+      display: none;
+    }
+
+    .app-desktop-nav {
+      display: flex;
+    }
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
